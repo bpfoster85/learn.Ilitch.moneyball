@@ -22,14 +22,7 @@ jobs:
            with:
               creds: ${{ secrets.AZURE_CREDENTIALS }}
               enable-AzPSSession: true
-
-         - name: Install ADE extension
-           uses: azure/powershell@v1
-           with:
-             azPSVersion: "3.1.0"
-             inlineScript: |
-               az extension add --name devcenter --upgrade
-         
+                       
          - name: Create Project Environment  for new branch which will allow environments to be built against
            uses: azure/powershell@v1
            with:
