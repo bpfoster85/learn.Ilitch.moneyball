@@ -26,36 +26,6 @@ jobs:
              azPSVersion: "3.1.0"
              inlineScript: |
                az extension add --name devcenter --upgrade
-               
-         - name: Register DevCenter
-           uses: azure/powershell@v1
-           with:
-             azPSVersion: "3.1.0"
-             inlineScript: |
-               az provider register --namespace Microsoft.DevCenter
-               
-         #- name: test
-         #  uses: azure/powershell@v1
-         #  with:
-         #    azPSVersion: "3.1.0"
-         #    inlineScript: |
-         #      az account set --subscription ME-MngEnvMCAP969004-bryanfoster-1
-         #      $DEVCID= $(az devcenter admin devcenter show -n dc-main-2 --resource-group rg-developer_landing_zone --query id -o tsv)
-         #      echo $DEVCID
-
-         - name: Create DLZ Project
-           uses: azure/powershell@v1
-           with:
-             azPSVersion: "3.1.0"
-             inlineScript: |
-               az devcenter admin project create --name 'newproject-${{ env.BRANCH_NAME }}-dev' --resource-group 'rg-developer_landing_zone' --location 'East US 2' --dev-center-id ${{ secrets.DEVCENTERID }}
-               
-         - name: Create Owner for DLZ Project, Get Roles
-           uses: azure/powershell@v1
-           with:
-             azPSVersion: "3.1.0"
-             inlineScript: |
-              az role assignment create --assignee ${{ secrets.DEVCENTER_SERVICEPRINCIPLE_OWNER_ID }} --role "Owner" --scope "/subscriptions/${{ secrets.DEVCENTER_SUBID }}"
          
          - name: Create Project Environment  for new branch which will allow environments to be built against
            uses: azure/powershell@v1
@@ -64,10 +34,10 @@ jobs:
              inlineScript: |
               az devcenter dev environment create `
               --dev-center-name devcenter-test `
-              --project-name IlitchDemo `
+              --project-name 'IlitchDemo' `
               --environment-name 'newproject-${{ env.BRANCH_NAME }}-dev' `
-              --environment-type Development `
-              --environment-definition-name IDONOTKNOW `
+              --environment-type 'Development' `
+              --environment-definition-name Program `
               --catalog-name Ilitch_Demo
               
 
