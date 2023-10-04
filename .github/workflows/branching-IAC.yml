@@ -37,7 +37,7 @@ jobs:
               --project-name 'IlitchDemo' `
               --environment-name 'newproject-${{ env.BRANCH_NAME }}-dev' `
               --environment-type 'Development' `
-              --environment-definition-name IDONOTKNOW `
+              --environment-definition-name Ilitch_Demo `
               --catalog-name Ilitch_Demo `
               --parameters "{'name': 'newproject-${{ env.BRANCH_NAME }}-dev'}"             
 
