@@ -22,7 +22,7 @@ jobs:
            with:
               creds: ${{ secrets.AZURE_CREDENTIALS }}
               enable-AzPSSession: true
-                       
+
          - name: Create Project Environment  for new branch which will allow environments to be built against
            uses: azure/powershell@v1
            with:
@@ -35,7 +35,9 @@ jobs:
               --environment-type 'Development' `
               --environment-definition-name Ilitch_Demo `
               --catalog-name Ilitch_Demo `
-              --parameters "{'name': '${{ env.DC_ENV_Name }}-dev'}"             
+              --parameters "{'name': '${{ env.DC_ENV_Name }}-dev'}"
+                  
+        # NEXT JOB STEP CALL DEPLOY ACTION TO DEPLOY TO NEW ENVIRONMENT
 
               
               
