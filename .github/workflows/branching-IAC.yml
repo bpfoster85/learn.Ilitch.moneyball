@@ -11,6 +11,7 @@ jobs:
            run: |
             # Short name for current branch. For PRs, use target branch (base ref)
             echo "BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f 4)" >> $GITHUB_ENV
+            echo "PROJECT_NAME=$(MoneyBall-$BRANCH_NAME") >> $GITHUB_ENV
          
          - name: 'Setting IAC for new branch'
            run: |
@@ -34,12 +35,12 @@ jobs:
              inlineScript: |
               az devcenter dev environment create `
               --dev-center-name devcenter-test `
-              --project-name '${{ env.DEVCENTER_PROJECTNAME }}' `
-              --environment-name '${{ env.DEVCENTER_PROJECTNAME }}-${{ env.BRANCH_NAME }}-dev' `
+              --project-name '${{ env.PROJECT_NAME }}' `
+              --environment-name '${{ env.PROJECT_NAME }}-dev' `
               --environment-type 'Development' `
               --environment-definition-name Ilitch_Demo `
               --catalog-name Ilitch_Demo `
-              --parameters "{'name': '${{ env.DEVCENTER_PROJECTNAME }}-${{ env.BRANCH_NAME }}-dev'}"             
+              --parameters "{'name': '${{ env.PROJECT_NAME }}-dev'}"             
 
               
               
