@@ -34,12 +34,12 @@ jobs:
              inlineScript: |
               az devcenter dev environment create `
               --dev-center-name devcenter-test `
-              --project-name 'IlitchDemo' `
-              --environment-name 'newproject-${{ env.BRANCH_NAME }}-dev' `
+              --project-name '${{ env.DEVCENTER_PROJECTNAME }}' `
+              --environment-name '${{ env.DEVCENTER_PROJECTNAME }}-${{ env.BRANCH_NAME }}-dev' `
               --environment-type 'Development' `
               --environment-definition-name Ilitch_Demo `
               --catalog-name Ilitch_Demo `
-              --parameters "{'name': 'newproject-${{ env.BRANCH_NAME }}-dev'}"             
+              --parameters "{'name': '${{ env.DEVCENTER_PROJECTNAME }}-${{ env.BRANCH_NAME }}-dev'}"             
 
               
               
