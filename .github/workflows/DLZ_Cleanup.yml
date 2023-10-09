@@ -6,6 +6,7 @@ on:
       - closed
 env:
   PROJECT_NAME: 'MoneyBall'
+  ENV_NAME: 'MoneyBall-LiveRoster-dev'
 jobs:
    DLZ_Cleanup:
     #if_merged:
@@ -25,7 +26,7 @@ jobs:
              az devcenter dev environment delete `
              --dev-center-name devcenter-test `
              --project-name '${{ env.PROJECT_NAME }}' `
-             --environment-name '${{ env.DC_ENV_Name }}-dev' `
+             --environment-name '${{ env.ENV_NAME }}' `
              --no-wait `
              --user-id me `
              --yes
