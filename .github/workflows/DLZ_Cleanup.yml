@@ -26,6 +26,6 @@ jobs:
              --dev-center-name devcenter-test `
              --project-name '${{ env.PROJECT_NAME }}' `
              --environment-name '${{ env.DC_ENV_Name }}-dev' `
-             --no-wait true `
+             --no-wait `
              --user-id me `
              --yes true 
