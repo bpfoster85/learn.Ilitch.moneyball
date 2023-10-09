@@ -28,4 +28,4 @@ jobs:
              --environment-name '${{ env.DC_ENV_Name }}-dev' `
              --no-wait `
              --user-id me `
-             --yes true 
+             --yes
