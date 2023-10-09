@@ -6,24 +6,25 @@ on:
       - closed
 
 jobs:
-  if_merged:
-    if: github.event.pull_request.merged == true
+   DLZ_Cleanup:
+   #if_merged:
+    #if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-    - name: Set Variables
-      run: |
-       echo "BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f 4)" >> $GITHUB_ENV
-       echo "DC_ENV_Name=MoneyBall-$(echo $GITHUB_REF | cut -d'/' -f 4)" >> $GITHUB_ENV
+       - name: Set Variables
+         run: |
+          echo "BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f 4)" >> $GITHUB_ENV
+          echo "DC_ENV_Name=MoneyBall-$(echo $GITHUB_REF | cut -d'/' -f 4)" >> $GITHUB_ENV
 
-    - name: DLZ Environment Cleanup
-      uses: azure/powershell@v1
-      with:
-        azPSVersion: "3.1.0"
-        inlineScript: |
-         az devcenter dev environment delete `
-         --dev-center-name devcenter-test `
-         --project-name '${{ env.PROJECT_NAME }}' `
-         --environment-name '${{ env.DC_ENV_Name }}-dev' `
-         --no-wait true `
-         --user-id me `
-         --yes true 
+       - name: DLZ Environment Cleanup
+         uses: azure/powershell@v1
+         with:
+           azPSVersion: "3.1.0"
+           inlineScript: |
+             az devcenter dev environment delete `
+             --dev-center-name devcenter-test `
+             --project-name '${{ env.PROJECT_NAME }}' `
+             --environment-name '${{ env.DC_ENV_Name }}-dev' `
+             --no-wait true `
+             --user-id me `
+             --yes true 
