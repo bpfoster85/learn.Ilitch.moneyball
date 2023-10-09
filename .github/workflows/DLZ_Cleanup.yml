@@ -17,7 +17,13 @@ jobs:
          run: |
           echo "BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f 4)" >> $GITHUB_ENV
           echo "DC_ENV_Name=MoneyBall-$(echo $GITHUB_REF | cut -d'/' -f 4)" >> $GITHUB_ENV
-
+       
+       - name: 'Setting IAC for new branch'                 
+       - uses: azure/login@v1
+         with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+            enable-AzPSSession: true
+            
        - name: DLZ Environment Cleanup
          uses: azure/powershell@v1
          with:
