@@ -3,7 +3,6 @@ on:
    create:
      branches:
       - 'releases/**'
-
 env:
   PROJECT_NAME: 'MoneyBall'
 jobs:
