@@ -15,7 +15,9 @@ jobs:
            run: |
             # Short name for current branch. For PRs, use target branch (base ref)
             echo "BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f 4)" >> $GITHUB_ENV
-            echo "DC_ENV_Name=MoneyBall-$(echo $GITHUB_REF | cut -d'/' -f 4)" >> $GITHUB_ENV
+            echo "DC_ENV_NAME=${{env.PROJECT_NAME}}-${{env.BRANCH_NAME}}-dev" >> $GITHUB_ENV
+            echo "DC_WEB_NAME=${{ENV.DC_ENV_NAME}}-web" >> $GITHUB_ENV
+            echo "RG_NAME=${{ env.PROJECT_NAME }}-${{ env.DC_ENV_Name }}" >> $GITHUB_ENV
          
          - name: 'Setting IAC for new branch'
            run: |
@@ -33,29 +35,27 @@ jobs:
               az devcenter dev environment create `
               --dev-center-name devcenter-test `
               --project-name '${{ env.PROJECT_NAME }}' `
-              --environment-name '${{ env.DC_ENV_Name }}-dev' `
+              --environment-name '${{ env.DC_ENV_NAME }}' `
               --environment-type 'Development' `
               --environment-definition-name Ilitch_Demo `
               --catalog-name Ilitch_Demo `
-              --parameters "{'name': '${{ env.DC_ENV_Name }}-dev'}"
+              --parameters "{'name': '${{ env.DC_ENV_NAME }}'}"
 
          - name: Get publish Profile
            id: fncapp
            shell: pwsh
            run: |
             $profile = Get-AzWebAppPublishingProfile `
-            -ResourceGroupName '${{ env.PROJECT_NAME }}-${{ env.DC_ENV_Name }}-dev' `
-            -Name '${{ env.DC_ENV_Name }}-dev-web' `
-            echo "PROFILE = $profile.Replace("`r", "").Replace("`n", "")" >> $GITHUB_ENV
-            Write-Output "::set-output name=profile::$profile"
-                  
-        # NEXT JOB STEP CALL DEPLOY ACTION TO DEPLOY TO NEW ENVIRONMENT
+            -ResourceGroupName '${{env.RG_NAME}}' `
+            -Name '${{ env.DC_WEB_NAME }}' `
+            echo "WEB_PUB_PROFILE=$profile.Replace("`r", "").Replace("`n", "")" >> $GITHUB_ENV
+
    Deploy to new environment:
       needs: Run_IAC_for_new_branch
       uses: ./.github/workflows/azure-webapps-dotnet-core.yml
       with:
-        AZURE_WEBAPP_PUBLISH_PROFILE: ${{ env.PROFILE }}
-        WEBAPP_NAME: ${{ env.DC_ENV_Name }}-dev-web
+        AZURE_WEBAPP_PUBLISH_PROFILE: ${{ env.WEB_PUB_PROFILE }}
+        WEBAPP_NAME: ${{ env.DC_WEB_NAME }}
 
               
               
