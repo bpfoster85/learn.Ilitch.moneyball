@@ -2,7 +2,7 @@ name: Branching-create-iac
 on:
    create:
      branches:
-      - ['releases/**',main]
+      - ['releases/**','main']
 env:
   PROJECT_NAME: 'MoneyBall'
 jobs:
