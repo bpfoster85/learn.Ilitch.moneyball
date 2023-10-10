@@ -47,10 +47,15 @@ jobs:
             $profile = Get-AzWebAppPublishingProfile `
             -ResourceGroupName '${{ env.PROJECT_NAME }}-${{ env.DC_ENV_Name }}-dev' `
             -Name '${{ env.DC_ENV_Name }}-dev-web' `
-            $profile = $profile.Replace("`r", "").Replace("`n", "")
+            echo "PROFILE = $profile.Replace("`r", "").Replace("`n", "")" >> $GITHUB_ENV
             Write-Output "::set-output name=profile::$profile"
                   
         # NEXT JOB STEP CALL DEPLOY ACTION TO DEPLOY TO NEW ENVIRONMENT
+         - name: Deploy to new environment
+           uses: octo-org/example-repo/.github/workflows/azure-webapps-dotnet-core.yml@main
+           with:
+            AZURE_WEBAPP_PUBLISH_PROFILE: ${{ env.PROFILE }}
+            WEBAPP_NAME: ${{ env.DC_ENV_Name }}-dev-web
 
               
               
