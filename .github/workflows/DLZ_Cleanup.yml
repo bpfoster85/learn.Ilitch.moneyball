@@ -1,16 +1,18 @@
 name: DLZ Cleanup
-on:
+on: 
+  delete:
   workflow_dispatch:
   pull_request:
     types:
-      - closed
+      - closed  
 env:
   PROJECT_NAME: 'MoneyBall'
   ENV_NAME: 'MoneyBall-LiveRoster-dev'
 jobs:
    DLZ_Cleanup:
     #if_merged:
-    #if: github.event.pull_request.merged == true
+      #if: github.event.pull_request.merged == true
+      #if: github.event.ref_type == 'branch'
     runs-on: ubuntu-latest
     steps:      
     - name: 'Setting IAC for new branch'
