@@ -46,7 +46,7 @@ jobs:
            run: |
             $profile = Get-AzWebAppPublishingProfile `
             -ResourceGroupName '${{ env.PROJECT_NAME }}-${{ env.DC_ENV_Name }}-dev' `
-            -Name '${{ env.DC_ENV_Name }}-dev-web'\}
+            -Name '${{ env.DC_ENV_Name }}-dev-web' `
             $profile = $profile.Replace("`r", "").Replace("`n", "")
             Write-Output "::set-output name=profile::$profile"
                   
