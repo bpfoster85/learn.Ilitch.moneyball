@@ -45,8 +45,8 @@ jobs:
            shell: pwsh
            run: |
             $profile = Get-AzWebAppPublishingProfile `
-            -ResourceGroupName $\{\{ secrets.RESOURCE_GROUP_NAME \}\} `
-            -Name $\{\{ secrets.FUNCTION_APP_NAME \}\}
+            -ResourceGroupName '${{ env.PROJECT_NAME }}-${{ env.DC_ENV_Name }}-dev' `
+            -Name '${{ env.DC_ENV_Name }}-dev-web'\}
             $profile = $profile.Replace("`r", "").Replace("`n", "")
             Write-Output "::set-output name=profile::$profile"
                   
