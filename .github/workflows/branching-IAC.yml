@@ -50,7 +50,7 @@ jobs:
             -Name '${{ env.DC_WEB_NAME }}' `
             echo "WEB_PUB_PROFILE=$profile.Replace("`r", "").Replace("`n", "")" >> $GITHUB_ENV
 
-   Deploy to new environment:
+   Deploy_to_new_environment:
       needs: Run_IAC_for_new_branch
       uses: ./.github/workflows/azure-webapps-dotnet-core.yml
       with:
