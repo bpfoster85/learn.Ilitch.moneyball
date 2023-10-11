@@ -44,6 +44,6 @@ jobs:
         - name: 'Run Azure webapp deploy action using publish profile credentials'
           uses: azure/webapps-deploy@v2
           with: 
-            app-name: '${env.DC_ENV_NAME}' # Replace with your app name
+            app-name: ${env.DC_ENV_NAME} # Replace with your app name
             package: website
      
