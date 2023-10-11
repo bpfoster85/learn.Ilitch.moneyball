@@ -18,8 +18,12 @@ jobs:
   build-and-deploy:
       runs-on: ubuntu-latest
       steps:
-        - name: Setting Branch Name to Variable
-          run: echo "DC_ENV_NAME=MoneyBall-$(echo $GITHUB_REF | cut -d'/' -f 4)-dev-web" >> $GITHUB_ENV
+        #- name: Setting Branch Name to Variable
+         # run: echo "DC_ENV_NAME=MoneyBall-${GITHUB_REF#refs/*/}-dev-web" >> $GITHUB_ENV
+        - name: Extract branch name
+          shell: bash
+          run: echo "branch=MoneyBall-${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}-dev-web" >> $GITHUB_ENV
+          id: extract_branch
 
         - uses: azure/login@v1
           with:
