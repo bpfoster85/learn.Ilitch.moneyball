@@ -11,13 +11,25 @@ jobs:
       runs-on: ubuntu-latest
       # if: ${{contains(github.ref, 'refs/heads/releases/')}}
       steps:
-         
+         - name: Set outputs
+           id: vars
+           run: |
+            echo ::set-output name=BRANCH_NAME::$(echo $GITHUB_REF | cut -d'/' -f 4)
+            echo ::set-output name=DC_ENV_NAME::${{env.PROJECT_NAME}}-${{ env.BRANCH_NAME }}-dev
+            echo ::set-output name=DC_WEB_NAME::${{ENV.DC_ENV_NAME}}-web
+            
+         - name: Test set output
+           run: |
+            echo ${{ steps.vars.outputs.BRANCH_NAME }}
+            echo ${{ steps.vars.outputs.DC_ENV_NAME }}
+            echo ${{ steps.vars.outputs.DC_WEB_NAME }}
+
          - name: Setting Branch Name to Variable
            run: |
             echo "BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f 4)" >> $GITHUB_ENV
             echo "DC_ENV_NAME=${{env.PROJECT_NAME}}-${{ env.BRANCH_NAME }}-dev" >> $GITHUB_ENV
             echo "DC_WEB_NAME=${{ENV.DC_ENV_NAME}}-web" >> $GITHUB_ENV
-            echo "RG_NAME=${{ env.PROJECT_NAME }}-${{ env.DC_ENV_Name }}" >> $GITHUB_ENV
+            
                  
          - uses: azure/login@v1
            with:
