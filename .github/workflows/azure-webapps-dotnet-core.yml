@@ -18,14 +18,8 @@ jobs:
   build-and-deploy:
       runs-on: ubuntu-latest
       steps:
-        #- name: Setting Branch Name to Variable
-         # run: echo "DC_ENV_NAME=MoneyBall-${GITHUB_REF#refs/*/}-dev-web" >> $GITHUB_ENV
-        - name: Extract branch name
-          shell: bash
-          run: |
-            echo "DC_ENV_NAME=MoneyBall-${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}-dev-web" >> $GITHUB_ENV
-            echo "FREAK!${GITHUB_HEAD_REF}"
-          id: extract_branch
+        - name: Setting Branch Name to Variable
+          run: echo "DC_ENV_NAME=MoneyBall-$(echo $GITHUB_REF | cut -d'/' -f 4)-dev" >> $GITHUB_ENV        
 
         - uses: azure/login@v1
           with:
@@ -50,6 +44,6 @@ jobs:
         - name: 'Run Azure webapp deploy action using publish profile credentials'
           uses: azure/webapps-deploy@v2
           with: 
-            app-name: 'MoneyBall-LiveRoster-dev-web' # Replace with your app name
+            app-name: '${env.DC_ENV_NAME}' # Replace with your app name
             package: website
      
