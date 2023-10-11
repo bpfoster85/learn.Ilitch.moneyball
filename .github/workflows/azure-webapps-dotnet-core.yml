@@ -24,7 +24,7 @@ jobs:
           shell: bash
           run: |
             echo "DC_ENV_NAME=MoneyBall-${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}-dev-web" >> $GITHUB_ENV
-            echo "FREAK!${GITHUB_HEAD_REF"
+            echo "FREAK!${GITHUB_HEAD_REF}"
           id: extract_branch
 
         - uses: azure/login@v1
