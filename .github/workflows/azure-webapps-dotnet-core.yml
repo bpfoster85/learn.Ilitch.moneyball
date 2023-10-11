@@ -22,7 +22,9 @@ jobs:
          # run: echo "DC_ENV_NAME=MoneyBall-${GITHUB_REF#refs/*/}-dev-web" >> $GITHUB_ENV
         - name: Extract branch name
           shell: bash
-          run: echo "branch=MoneyBall-${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}-dev-web" >> $GITHUB_ENV
+          run: |
+            echo "branch=MoneyBall-${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}-dev-web" >> $GITHUB_ENV
+            echo ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
           id: extract_branch
 
         - uses: azure/login@v1
