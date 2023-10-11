@@ -25,8 +25,7 @@ jobs:
     steps:
       - name: Setting Branch Name to Variable
         run: |        
-         echo "BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f 4)" >> $GITHUB_ENV
-         echo "DC_WEB_NAME=${{env.PROJECT_NAME}}-${{env.BRANCH_NAME}}-dev-web" >> $GITHUB_ENV
+         echo "DC_WEB_NAME=${{env.PROJECT_NAME}}-${{ github.ref_name }}-dev-web" >> $GITHUB_ENV
 
       - uses: actions/checkout@v3
       - name: Setup .NET
