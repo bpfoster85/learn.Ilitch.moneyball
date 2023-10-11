@@ -24,7 +24,8 @@ jobs:
 
     steps:
       - name: Setting Branch Name to Variable
-        run: echo "DC_WEB_NAME=${{env.PROJECT_NAME}}-${{ github.ref_name }}-dev-web" >> $GITHUB_ENV
+        run: echo "DC_WEB_NAME=MoneyBall-$(echo $GITHUB_REF | cut -d'/' -f 4)-dev-web" >> $GITHUB_ENV          
+         
 
       - uses: actions/checkout@v3
       - name: Setup .NET
@@ -51,7 +52,6 @@ jobs:
     needs: build
     
     environment:
-      name: 'Development'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
