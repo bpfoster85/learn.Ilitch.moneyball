@@ -11,10 +11,11 @@ jobs:
       runs-on: ubuntu-latest
       # if: ${{contains(github.ref, 'refs/heads/releases/')}}
       steps:
+         
          - name: Setting Branch Name to Variable
            run: |
-            #echo "BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f 4)" >> $GITHUB_ENV
-            echo "DC_ENV_NAME=${{env.PROJECT_NAME}}-${{ github.ref_name }}-dev" >> $GITHUB_ENV
+            echo "BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f 4)" >> $GITHUB_ENV
+            echo "DC_ENV_NAME=${{env.PROJECT_NAME}}-${{ env.BRANCH_NAME }}-dev" >> $GITHUB_ENV
             echo "DC_WEB_NAME=${{ENV.DC_ENV_NAME}}-web" >> $GITHUB_ENV
             echo "RG_NAME=${{ env.PROJECT_NAME }}-${{ env.DC_ENV_Name }}" >> $GITHUB_ENV
                  
