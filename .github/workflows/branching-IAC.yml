@@ -16,11 +16,13 @@ jobs:
             echo "BRANCH_NAME=$(echo $GITHUB_REF | cut -d'/' -f 4)" >> $GITHUB_ENV
             echo "DC_ENV_NAME=MoneyBall-$(echo $GITHUB_REF | cut -d'/' -f 4)-dev" >> $GITHUB_ENV
          
-         - name: Login via Azure CLI
-           uses: azure/login@v1
+         - name: 'Setting IAC for new branch'
+           run: |
+             echo ${{ env.BRANCH_NAME }}
+         - uses: azure/login@v1
            with:
-              creds: ${{ secrets.AZURE_CREDENTIALS }}
-              enable-AzPSSession: true
+             creds: ${{ secrets.AZURE_CREDENTIALS }}
+             enable-AzPSSession: true
 
          - name: Create Project Environment  for new branch which will allow environments to be built against
            uses: azure/powershell@v1
