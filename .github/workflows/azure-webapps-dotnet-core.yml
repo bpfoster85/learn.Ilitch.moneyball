@@ -52,6 +52,7 @@ jobs:
     needs: build
     
     environment:
+      name: dev
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -61,10 +62,7 @@ jobs:
           name: website
           path: website
       
-      - name: Login via Azure CLI
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+     
 
       - name: Deploy web app
         id: deploywebapp
